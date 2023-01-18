@@ -20,6 +20,7 @@ export class App extends Component {
     query: '',
     page: 1,
     images: [],
+    totalImages: 0,
     status: 'idle',
   };
 
@@ -50,6 +51,7 @@ export class App extends Component {
         this.setState({
           status: Status.RESOLVED,
           images: [...images, ...dataImages],
+          totalImages: response.totalHits,
         });
       } catch {
         this.setState({
@@ -72,7 +74,7 @@ export class App extends Component {
 
   render() {
     const { handleFormSubmit, handleButtonClick } = this;
-    const { images, status } = this.state;
+    const { images, status, totalImages } = this.state;
 
     return (
       <Container>
@@ -83,7 +85,7 @@ export class App extends Component {
               <>
                 <ImageGallery items={images} />
                 {status === Status.PENDING && <Loader />}
-                {status === Status.RESOLVED && (
+                {status === Status.RESOLVED && images.length < totalImages && (
                   <Button onClick={handleButtonClick} />
                 )}
               </>
