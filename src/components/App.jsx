@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import * as Scroll from 'react-scroll';
 import { ToastContainer } from 'react-toastify';
 import { Container } from './App.styled';
 import { Searchbar } from './Searchbar';
@@ -64,6 +65,8 @@ export class App extends Component {
 
   handleButtonClick = () => {
     this.setState(prevState => ({ page: prevState.page + 1 }));
+    const scroll = Scroll.animateScroll;
+    scroll.scrollMore(500, { duration: 1500 });
   };
   handleFormSubmit = query => {
     if (this.state.query === query) {
